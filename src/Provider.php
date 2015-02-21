@@ -37,7 +37,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     {
         $response = $this->getHttpClient()->get('https://api.uber.com/v1/me', [
             'headers' => [
-                'Authorization' => 'Token '.$token,
+                'Authorization' => 'Bearer '.$token,
             ],
         ]);
 
