@@ -17,7 +17,9 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://login.uber.com/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase(
+            'https://login.uber.com/oauth/authorize', $state
+        );
     }
 
     /**
@@ -33,7 +35,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('https://api.uber.com/v1/me', [
+        $response = $this->getHttpClient()->get(
+            'https://api.uber.com/v1/me', [
             'headers' => [
                 'Authorization' => 'Bearer '.$token,
             ],
@@ -48,11 +51,9 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-            'id'       => $user['uuid'],
-            'nickname' => null,
-            'name'     => $user['first_name'].' '.$user['last_name'],
-            'email'    => $user['email'],
-            'avatar'   => $user['picture'],
+            'id' => $user['uuid'], 'nickname' => null,
+            'name' => $user['first_name'].' '.$user['last_name'],
+            'email' => $user['email'], 'avatar' => $user['picture'],
         ]);
     }
 
@@ -61,6 +62,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenFields($code)
     {
-        return array_merge(parent::getTokenFields($code), ['grant_type' => 'authorization_code']);
+        return array_merge(parent::getTokenFields($code), [
+            'grant_type' => 'authorization_code',
+        ]);
     }
 }
