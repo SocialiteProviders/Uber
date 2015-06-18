@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\Uber;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;
